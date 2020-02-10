@@ -49,12 +49,12 @@ def main():
     pinsetup()
     begin()
     time.sleep(1)
-
- #   for x in range(0,5):
- #   print("Forward1")
- #   forward()
- #   print("Forward2")
- #   forward()
+ 
+    for x in range(0,5):
+     print("Forward1")
+     forward()
+     print("Forward2")
+     forward()
 
  #   print("Backward1")
  #   backward()
@@ -157,12 +157,20 @@ def forward():
         t2.join()
         t4.join()
   
+        time.sleep(2)
         #now right side legs are parallel and left side legs are lateral      
 
     if (leg_formation == 2):
         #send leg2 to parallel and leg4 to lateral (lift)
         t2= Thread(target=leg2_l2p)
         t4=Thread(target=leg4_p2l)
+
+        t2.start()
+        t4.start()
+
+        t2.join()
+        t4.join()
+
     
         # sending leg3 to lateral, and leg1 to parallel
         t3 = Thread(target=leg3, args=(back_lateral,footdown,pincer_down))
