@@ -141,22 +141,20 @@ def forward():
         t1= Thread(target=leg1_p2l)
         t3=Thread(target=leg3_l2p)
         
-        t1.start()
-        t3.start()
-        
-        t1.join()
-        t3.join()
-        
         #send leg2 to lateral, and leg4 to parallel (drag)
         t2 = Thread(target=leg2, args=(back_lateral,footdown,pincer_down))
         t4 = Thread(target=leg4, args=(front_parallel,footdown,pincer_down))
-
+        
+        t1.start()
+        t3.start()
         t2.start()
         t4.start()
-
+        
+        t1.join()
+        t3.join()
         t2.join()
         t4.join()
-  
+          
         time.sleep(2)
         #now right side legs are parallel and left side legs are lateral      
 
@@ -164,22 +162,21 @@ def forward():
         #send leg2 to parallel and leg4 to lateral (lift)
         t2= Thread(target=leg2_l2p)
         t4=Thread(target=leg4_p2l)
-
+        
+        # sending leg3 to lateral, and leg1 to parallel
+        t3 = Thread(target=leg3, args=(back_lateral,footdown,pincer_down))
+        t1 = Thread(target=leg1, args=(front_parallel,footdown,pincer_down))
+        
+        t3.start()
+        t1.start()
         t2.start()
         t4.start()
 
         t2.join()
-        t4.join()
-
-    
-        # sending leg3 to lateral, and leg1 to parallel
-        t3 = Thread(target=leg3, args=(back_lateral,footdown,pincer_down))
-        t1 = Thread(target=leg1, args=(front_parallel,footdown,pincer_down))
-        t3.start()
-        t1.start()
-        
+        t4.join()        
         t3.join()
         t1.join()
+        
         time.sleep(step_delay)
 
         #now left side legs are parallel and right side legs are lateral
