@@ -30,15 +30,15 @@ def distance(PIN_TRIGGER, PIN_ECHO):
       dist = round(pulse_duration * 17150, 2)
       return dist
 try:
- while(1)
+ while(1):
     dist1a=distance(PIN_TRIGGER1,PIN_ECHO1)
     dist2a=distance(PIN_TRIGGER2,PIN_ECHO2)
     dist1b=distance(PIN_TRIGGER1,PIN_ECHO1)
     dist2b=distance(PIN_TRIGGER2,PIN_ECHO2)
-    dist1=(dist1a+dist1b)/2
-    dist2=(dist2a+dist2b)/2
-    print( "Distance: ",dist1,"cm")
-    print( "Distance: ",dist2,"cm")
+    dist1=round((dist1a+dist1b)/2)
+    dist2=round((dist2a+dist2b)/2)
+    print( "Distance1: ",dist1,"cm")
+    print( "Distance2: ",dist2,"cm")
 
 finally:
     GPIO.cleanup()
