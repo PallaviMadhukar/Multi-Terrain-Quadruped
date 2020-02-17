@@ -41,11 +41,6 @@ pincer_up_13= 60
 pincer_up_24 = 120
 pincer_down = 90
 
-leg1_footdown = footdown
-leg2_footdown = footdown
-leg3_footdown = footdown
-leg4_footdown = footdown
-
 leg_formation = 0
 
 channel_cur = [0,90,90,90,90,90,90,90,90,90,90,90,90]
@@ -56,7 +51,15 @@ def pinsetup():
 def main():
     pinsetup()
     
+    init()
+    
 def init():
+    leg1(89,89,89)
+    leg2(89,89,89)
+    leg3(89,89,89)
+    leg4(89,89,89)
+    time.sleep(2)
+
     #all are lateral
     print("init")
     leg1(front_lateral,footdown,pincer_down) #leftside
