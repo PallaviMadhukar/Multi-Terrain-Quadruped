@@ -41,11 +41,6 @@ pincer_up_13= 60
 pincer_up_24 = 120
 pincer_down = 90
 
-leg1_footdown = footdown
-leg2_footdown = footdown
-leg3_footdown = footdown
-leg4_footdown = footdown
-
 leg_formation = 0
 
 channel_cur = [0,90,90,90,90,90,90,90,90,90,90,90,90]
@@ -56,16 +51,16 @@ def main():
     begin()
     time.sleep(1)
 
- #   for x in range(0,5):
- #   print("Forward1")
- #   forward()
- #   print("Forward2")
- #   forward()
+    for x in range(0,5):
+     print("Forward1")
+     forward()
+     print("Forward2")
+     forward()
 
- #   print("Backward1")
- #   backward()
- #   print("Backward2")
- #   backward()
+    print("Backward1")
+    backward()
+    print("Backward2")
+    backward()
 
 
    # for x in range(0,15):

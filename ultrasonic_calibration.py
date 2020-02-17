@@ -11,7 +11,7 @@ PIN_TRIGGER2=18
 PIN_ECHO2=22
 
 num_measure=20
-limit=25
+limit=50
 
 def distance(PIN_TRIGGER, PIN_ECHO):
       GPIO.setmode(GPIO.BOARD)
