@@ -19,27 +19,30 @@ pwm.set_pwm_freq(60)
 
 move_delay = 0.0005
 step_delay = 0.001
+rest=1
 
-leg1_offset = [0,10,10,0] #first 0 is dummy
-leg2_offset = [0,0,10,0]
-leg3_offset = [0, 0,20,-10]
+leg1_offset = [0,25,25,-5] #first 0 is dummy
+leg2_offset = [0,20,10,-5]
+leg3_offset = [0,-5,20,-10]
 leg4_offset = [0,0,0,-10]
 
 front_lateral = 140
-front_parallel = 90
+front_parallel = 89
 front_lateral_add = 0
 
 back_lateral = 40
-back_parallel = 90
+back_parallel = 89
 back_lateral_add = 0
 
-footup_13 = 60
-footup_24= 120
-footdown=90
+footup_13 = 20
+footup_24= 160
+footdown=89
+footdown_13_s=70 
+footdown_24_s=110
 
 pincer_up_13= 60
 pincer_up_24 = 120
-pincer_down = 90
+pincer_down = 89
 
 leg_formation = 0
 
@@ -51,28 +54,20 @@ def pinsetup():
 def main():
     pinsetup()
     begin()
+    time.sleep(rest)
     stairs1()
+#    stairs1()
+#    stairs1()
+#    time.sleep(rest)
+#    stairs2()
 
 def begin():
-    global leg_formation
-    
-    print("Init- All 90")
-    leg1(89,89,89) #leftside
-    leg2(89,89,89)
-
-    leg3(89,89,89) #rightside
-    leg4(89,89,89)
-
-    time.sleep(2)
-
     print("Begin- Left parallel, Right lateral")
     leg1(front_parallel,footdown,pincer_down) #leftside
-    leg2(back_parallel,footdown,pincer_down)
+    leg2(back_lateral,footdown,pincer_down)
 
     leg3(back_lateral,footdown,pincer_down) #rightside
-    leg4(front_lateral,footdown,pincer_down)
-
-    leg_formation = 1
+    leg4(front_parallel,footdown,pincer_down)
 
 def leg1_p2l():
         #lift leg1
@@ -82,7 +77,7 @@ def leg1_p2l():
         leg1(front_lateral,footup_13,pincer_up_13)
         time.sleep(step_delay)
         #bring leg1 down 
-        leg1(front_lateral,footdown,pincer_down)
+        leg1(front_lateral,footdown_13_s,pincer_down)
         time.sleep(step_delay)
 
 def leg2_l2p():
@@ -115,60 +110,36 @@ def leg4_p2l():
         leg4(front_lateral,footup_24,pincer_up_24)
         time.sleep(step_delay)
         #bring leg4 down
-        leg4(front_lateral,footdown,pincer_down)
+        leg4(front_lateral,footdown_24_s,pincer_down)
         time.sleep(step_delay)
 
+def stairs2():
+       leg4_p2l()
+       time.sleep(rest)
+       leg1_p2l()
+       time.sleep(rest)
+       leg3_l2p()
+       time.sleep(rest)
+       leg2_l2p()
+
 def stairs1():
-    global leg_formation
-    if(leg_formation == 1):
-        #send leg1 to lateral and leg3 to parallel (lift)
-        t1= Thread(target=leg1_p2l)
-        t3=Thread(target=leg3_l2p)
-        
-        #send leg2 to lateral, and leg4 to parallel (drag)
-        t2 = Thread(target=leg2, args=(back_lateral,footdown,pincer_down))
+        leg4_p2l()
+        time.sleep(rest)
+        leg1_p2l()
+        time.sleep(rest)
+        #bring body forward
+        t1 = Thread(target=leg1, args=(front_parallel,footdown,pincer_down))
         t4 = Thread(target=leg4, args=(front_parallel,footdown,pincer_down))
         
         t1.start()
-        t3.start()
-        t2.start()
         t4.start()
         
         t1.join()
-        t3.join()
-        t2.join()
         t4.join()
           
         time.sleep(2)
         #now right side legs are parallel and left side legs are lateral      
 
-    if (leg_formation == 2):
-        #send leg2 to parallel and leg4 to lateral (lift)
-        t2= Thread(target=leg2_l2p)
-        t4=Thread(target=leg4_p2l)
-        
-        # sending leg3 to lateral, and leg1 to parallel
-        t3 = Thread(target=leg3, args=(back_lateral,footdown,pincer_down))
-        t1 = Thread(target=leg1, args=(front_parallel,footdown,pincer_down))
-        
-        t3.start()
-        t1.start()
-        t2.start()
-        t4.start()
-
-        t2.join()
-        t4.join()        
-        t3.join()
-        t1.join()
-        
-        time.sleep(step_delay)
-
-        #now left side legs are parallel and right side legs are lateral
-
-    if(leg_formation == 1):
-        leg_formation = 2
-    elif(leg_formation == 2):
-        leg_formation = 1
 
 def init():
     leg1(89,89,89)
