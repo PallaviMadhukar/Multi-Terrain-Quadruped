@@ -45,57 +45,112 @@ leg_formation = 0
 
 channel_cur = [0,90,90,90,90,90,90,90,90,90,90,90,90]
 
-
 def main():
     pinsetup()
+#    init()
     begin()
-    time.sleep(1)
 
     for x in range(0,5):
-     print("Forward1")
      forward()
-     print("Forward2")
-     forward()
+    time.sleep(0.5)
 
-    print("Backward1")
-    backward()
-    print("Backward2")
-    backward()
+    for x in range(0,5):
+     backward()
+    time.sleep(0.5)
 
+    for x in range(0,5):
+         turn_left()
+    time.sleep(0.5)
 
-   # for x in range(0,15):
-   #      turn_left()
-     
+    for x in range(0,5):
+         turn_right()
+    time.sleep(0.5)     
 
 def pinsetup():
     GPIO.setmode(GPIO.BOARD)
- #   GPIO.setup(leg1_s, GPIO.IN, pull_up_down=GPIO.PUD_UP)
- #   GPIO.setup(leg2_s, GPIO.IN, pull_up_down=GPIO.PUD_UP)
- #   GPIO.setup(leg3_s, GPIO.IN, pull_up_down=GPIO.PUD_UP)
- #   GPIO.setup(leg4_s, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
+def init():
+      coxa()
+      tibia()
+      femur()
+
+def coxa():
+#only coxa
+        print("Coxa")
+        t1 = Thread(target=setServo_invert, args=(1, front_lateral))
+        t2 = Thread(target=setServo_invert, args=(4,back_lateral))
+        t3 = Thread(target=setServo, args=(7,back_lateral))
+        t4 = Thread(target=setServo, args=(10,front_lateral))
+        t1.start()
+        t2.start()
+        t3.start()
+        t4.start()
+        t1.join()
+        t2.join()
+        t3.join()
+        t4.join()
+        time.sleep(1)
+        channel_cur[1]=front_lateral
+        channel_cur[4]=back_lateral
+        channel_cur[7]=back_lateral
+        channel_cur[10]=front_lateral
+
+
+def tibia():
+#only tibia
+        print("Tibia")
+        t5 = Thread(target=setServo, args=(3,89))
+        t6 = Thread(target=setServo, args=(6,89))
+        t7 = Thread(target=setServo, args=(9,89))
+        t8 = Thread(target=setServo, args=(12,89))
+        t5.start()
+        t6.start()
+        t7.start()
+        t8.start()
+        t5.join()
+        t6.join()
+        t7.join()
+        t8.join()
+        time.sleep(1)
+        channel_cur[5]=89
+        channel_cur[6]=89
+        channel_cur[7]=89
+        channel_cur[8]=89
+
+
+def femur():
+#only femur
+        print("Femur")
+        t9 = Thread(target=setServo_invert, args=(2,89))
+        t10 = Thread(target=setServo_invert, args=(5,89))
+        t11 = Thread(target=setServo_invert, args=(8,89))
+        t12 = Thread(target=setServo_invert, args=(11,89))
+        t9.start()
+        t10.start()
+        t11.start()
+        t12.start()
+        t9.join()
+        t10.join()
+        t11.join()
+        t12.join()
+        time.sleep(1)
+        channel_cur[9]=89
+        channel_cur[10]=89
+        channel_cur[11]=89
+        channel_cur[12]=89
+    
     
 def begin():
+    print("Begin")
     global leg_formation
     
-    print("Init- All 90")
-    leg1(89,89,89) #leftside
-    leg2(89,89,89)
+    leg1(front_parallel,89,89) #leftside
+    leg2(back_parallel,89,89)
 
-    leg3(89,89,89) #rightside
-    leg4(89,89,89)
-
-    time.sleep(2)
-
-    print("Begin- Left parallel, Right lateral")
-    leg1(front_parallel,footdown,pincer_down) #leftside
-    leg2(back_parallel,footdown,pincer_down)
-
-    leg3(back_lateral,footdown,pincer_down) #rightside
-    leg4(front_lateral,footdown,pincer_down)
+    leg3(back_lateral,89,89) #rightside
+    leg4(front_lateral,89,89)
 
     leg_formation = 1
-    
 
 def forward():
     global leg_formation
