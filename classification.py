@@ -70,7 +70,7 @@ def classify(x1,x2):
           print("Down stairs with height ", avg_h)
 
 try:
-# while(1):
+ while(1):
     dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
     while(dist1>limit):
       print("Waiting for dist 1")
@@ -82,7 +82,9 @@ try:
     print( "Distance1: ",dist1,"cm")
     print( "Distance2: ",dist2,"cm")
     classify(dist1,dist2)
-
+    rd=input("Another reading? Enter y/n: ")
+    if(rd=='n'):
+      break;
 
 finally:
    pass
