@@ -9,14 +9,15 @@ PIN_ECHO1 = 16
 PIN_TRIGGER2=18
 PIN_ECHO2=22
 
-x1o=6.72
+x1o=6.18
 x2o=9.15
-threshold=1
+threshold=0.5
 limit=300
 alpha=math.pi/3
 l=6
 theta_limit=30
 h_limit=5
+diff_limit=0.2
 
 def distance(PIN_TRIGGER, PIN_ECHO):
       GPIO.setmode(GPIO.BOARD)
@@ -40,21 +41,24 @@ def distance(PIN_TRIGGER, PIN_ECHO):
       return dist
 
 def calc(x1,x2):
-      h=round((x2o-x2)*math.sin(alpha),2)
+      h1=round((x1o-x1)*math.sin(alpha),2)
+      h2=round((x2o-x2)*math.sin(alpha),2)
       theta=(math.pi/2)-alpha-math.atan((abs(x1-x2))/l)
       theta=round(math.degrees(theta),2)
-      return h,theta
+      return h1,h2,theta
 
 def classify(x1,x2):
-    h,theta=calc(x1,x2)
-    print(h,theta)
+    h1,h2,theta=calc(x1,x2)
+    print(h1,h2,theta)
     if((abs(x1-x1o)<=threshold) and (abs(x2-x2o)<=threshold)):
       print("Flat ground")
     elif((x1-x1o)<=(-threshold)and (x2-x2o)<=(-threshold) and abs(x1-x1o)-threshold<abs(x2-x2o)+threshold):
-      if(theta>1 and theta<theta_limit):
-         print("Up slope")
-      elif(h<h_limit):
+      print(abs(x2-x1))
+      print(abs(h1-h2))
+      if(abs(h1-h2)<diff_limit):
          print("Up stair")
+      elif(theta>1 and theta<theta_limit):
+         print("Up slope")
       else:
          print("Obstacle")
     elif((x1-x1o)>threshold and (x2-x2o)>threshold and abs(x1-x1o)-threshold<abs(x2-x2o)+threshold):
