@@ -17,7 +17,8 @@ alpha=math.pi/3 #90- angle at which sensors are placed
 l=6 #distance between sensors
 theta_min=4.5 #angle at which walking style has to change
 theta_max=30 #angle beyond which robot cannot climb slope
-h_limit=0.5 #stair difference in height
+h_limit_up=0.5 #stair difference in height
+h_limit_down=0.9
 
 def distance(PIN_TRIGGER, PIN_ECHO):
       GPIO.setmode(GPIO.BOARD)
@@ -53,21 +54,30 @@ def classify(x1,x2):
     print(h1,h2,theta)
     if((abs(x1-x1o)<=threshold) and (abs(x2-x2o)<=threshold)):
       print("Flat ground")
+      return 1
     elif((x1-x1o)<=(-threshold)and (x2-x2o)<=(-threshold) and abs(x1-x1o)-threshold<abs(x2-x2o)+threshold):
       print(abs(x2-x1))
       print(abs(h1-h2))
-      if(abs(h1-h2)<h_limit):
+      if(abs(h1-h2)<h_limit_up):
          print("Up stair with height ",avg_h)
+         return 1
       elif(theta>theta_min and theta<theta_max):
          print("Up slope with angle ", theta)
-    elif(abs(x1-x1o)>threshold and abs(x2-x2o)>threshold and x1-x1o-threshold>x2-x2o+threshold):
-#      if(abs(theta)>theta_min and abs(theta)<theta_max):
-         print("Down slope with angle ", theta)
+         return 1
     elif((x1-x1o)>threshold and (x2-x2o)>threshold and abs(x1-x1o)-threshold<abs(x2-x2o)+threshold):
       print(abs(x2-x1))
       print(abs(h1-h2))
-      if(abs(h1-h2)<h_limit):
+      if(abs(h1-h2)<h_limit_down):
           print("Down stairs with height ", avg_h)
+          return 1
+    elif(abs(x1-x1o)>threshold and abs(x2-x2o)>threshold and x1-x1o-threshold>x2-x2o+threshold):
+#      if(abs(theta)>theta_min and abs(theta)<theta_max):
+         print(abs(x2-x1))
+         print(abs(h1-h2))
+         print("Down slope with angle ", theta)
+         return 1
+    else:
+      return 0
 
 try:
  while(1):
@@ -81,10 +91,11 @@ try:
       dist2=distance(PIN_TRIGGER2,PIN_ECHO2)
     print( "Distance1: ",dist1,"cm")
     print( "Distance2: ",dist2,"cm")
-    classify(dist1,dist2)
-    rd=input("Another reading? Enter y/n: ")
-    if(rd=='n'):
-      break;
+    decision=classify(dist1,dist2)
+    if(decision):
+      rd=input("Another reading? Enter y/n: ")
+      if(rd=='n'):
+        break;
 
-finally:
+except KeyboardInterrupt:
    pass
