@@ -9,15 +9,15 @@ PIN_ECHO1 = 16
 PIN_TRIGGER2=18
 PIN_ECHO2=22
 
-x1o=6.18
-x2o=9.15
+x1o=4.86
+x2o=8.45
 threshold=0.5
-limit=300
-alpha=math.pi/3
-l=6
-theta_limit=30
-h_limit=5
-diff_limit=0.2
+limit=100 #garbage values
+alpha=math.pi/3 #90- angle at which sensors are placed
+l=6 #distance between sensors
+theta_min=4.5 #angle at which walking style has to change
+theta_max=30 #angle beyond which robot cannot climb slope
+h_limit=0.5 #stair difference in height
 
 def distance(PIN_TRIGGER, PIN_ECHO):
       GPIO.setmode(GPIO.BOARD)
@@ -49,25 +49,28 @@ def calc(x1,x2):
 
 def classify(x1,x2):
     h1,h2,theta=calc(x1,x2)
+    avg_h=(h1+h2)/2
     print(h1,h2,theta)
     if((abs(x1-x1o)<=threshold) and (abs(x2-x2o)<=threshold)):
       print("Flat ground")
     elif((x1-x1o)<=(-threshold)and (x2-x2o)<=(-threshold) and abs(x1-x1o)-threshold<abs(x2-x2o)+threshold):
       print(abs(x2-x1))
       print(abs(h1-h2))
-      if(abs(h1-h2)<diff_limit):
-         print("Up stair")
-      elif(theta>1 and theta<theta_limit):
-         print("Up slope")
-      else:
-         print("Obstacle")
-    elif((x1-x1o)>threshold and (x2-x2o)>threshold and abs(x1-x1o)-threshold<abs(x2-x2o)+threshold):
-      print("Down stairs")
+      if(abs(h1-h2)<h_limit):
+         print("Up stair with height ",avg_h)
+      elif(theta>theta_min and theta<theta_max):
+         print("Up slope with angle ", theta)
     elif(abs(x1-x1o)>threshold and abs(x2-x2o)>threshold and x1-x1o-threshold>x2-x2o+threshold):
-      print("Down slope")
+#      if(abs(theta)>theta_min and abs(theta)<theta_max):
+         print("Down slope with angle ", theta)
+    elif((x1-x1o)>threshold and (x2-x2o)>threshold and abs(x1-x1o)-threshold<abs(x2-x2o)+threshold):
+      print(abs(x2-x1))
+      print(abs(h1-h2))
+      if(abs(h1-h2)<h_limit):
+          print("Down stairs with height ", avg_h)
 
 try:
- while(1):
+# while(1):
     dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
     while(dist1>limit):
       print("Waiting for dist 1")
