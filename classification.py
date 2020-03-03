@@ -9,8 +9,8 @@ PIN_ECHO1 = 16
 PIN_TRIGGER2=18
 PIN_ECHO2=22
 
-x1o=4.86
-x2o=8.45
+x1o=6.86
+x2o=9.65
 threshold=0.5
 limit=100 #garbage values
 alpha=math.pi/3 #90- angle at which sensors are placed

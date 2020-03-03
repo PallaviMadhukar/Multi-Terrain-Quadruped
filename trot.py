@@ -47,11 +47,11 @@ channel_cur = [0,90,90,90,90,90,90,90,90,90,90,90,90]
 
 def main():
     pinsetup()
-    time.sleep(5)
+#    time.sleep(2)
     begin()
     time.sleep(1)
  
-    for x in range(0,10):
+    for x in range(0,5):
      forward()
 
 

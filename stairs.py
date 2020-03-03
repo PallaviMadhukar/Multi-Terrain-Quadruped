@@ -56,10 +56,10 @@ def main():
     begin()
     time.sleep(rest)
     stairs1()
-#    stairs1()
-#    stairs1()
-#    time.sleep(rest)
-#    stairs2()
+    stairs1()
+    stairs1()
+    time.sleep(rest)
+    stairs2()
 
 def begin():
     print("Begin- Left parallel, Right lateral")
@@ -68,6 +68,10 @@ def begin():
 
     leg3(back_lateral,footdown,pincer_down) #rightside
     leg4(front_parallel,footdown,pincer_down)
+#    leg1(89,89,89)
+#    leg2(89,89,89)
+#    leg3(89,89,89)
+#    leg4(89,89,89)
 
 def leg1_p2l():
         #lift leg1
