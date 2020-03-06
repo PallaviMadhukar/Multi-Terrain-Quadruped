@@ -19,63 +19,58 @@ pwm.set_pwm_freq(60)
 
 move_delay = 0.0005
 step_delay = 0.001
-rest=1
 
-leg1_offset = [0,20,20,5] #first 0 is dummy
-leg2_offset = [0,20,10,-5]
-leg3_offset = [0,-5,20,-10]
+leg1_offset = [0,10,10,0] #first 0 is dummy
+leg2_offset = [0,0,10,0]
+leg3_offset = [0, 0,20,-10]
 leg4_offset = [0,0,0,-10]
 
 front_lateral = 140
-front_parallel = 89
+front_parallel = 90
 front_lateral_add = 0
 
 back_lateral = 40
-back_parallel = 89
+back_parallel = 90
 back_lateral_add = 0
 
-footup_13 = 20
-footup_24= 160
-footdown=89
-footdown_13_s=70 
-footdown_24_s=110
+footup_13 = 80
+footup_24= 100
+footdown=90
 
-pincer_up_13= 60
-pincer_up_24 = 120
-pincer_down = 89
-
+pincer_up_13= 80
+pincer_up_24 = 100
+pincer_down = 90
+angle =7;
 leg_formation = 0
 
 channel_cur = [0,90,90,90,90,90,90,90,90,90,90,90,90]
 
+def main():
+    pinsetup()
+#    time.sleep(2)
+    begin()
+    time.sleep(1)
+ 
+    for x in range(0,5):
+     forward()
+
+
 def pinsetup():
     GPIO.setmode(GPIO.BOARD)
     
-def main():
-    pinsetup()
-    begin()
-    time.sleep(rest)
-    stairs1()
-    time.sleep(rest)
-    stairs2()
-
 def begin():
-#    print("Init- All 90")
-   # leg1(89,89,89) #leftside
-   # leg2(89,89,89)
+    global leg_formation
+    
+    time.sleep(2)
 
-   # leg3(89,89,89) #rightside
-   # leg4(89,89,89)
+    leg1(89,89,89) #leftside
+    leg2(89,89,89)
 
-   # time.sleep(2)
+    leg3(back_lateral,89,89) #rightside
+    leg4(front_lateral,89,89)
 
-    print("Begin- Left parallel, Right lateral")
-    leg1(front_parallel,footdown,pincer_down) #leftside
-    leg2(back_lateral,footdown,pincer_down)
-
-    leg3(back_lateral,footdown,pincer_down) #rightside
-    leg4(front_parallel,footdown,pincer_down)
-
+    leg_formation = 1
+    
 def leg1_p2l():
         #lift leg1
         leg1(front_parallel,footup_13,pincer_up_13)
@@ -84,7 +79,7 @@ def leg1_p2l():
         leg1(front_lateral,footup_13,pincer_up_13)
         time.sleep(step_delay)
         #bring leg1 down 
-        leg1(front_lateral,footdown_13_s,pincer_down)
+        leg1(front_lateral,footdown + angle,pincer_down)
         time.sleep(step_delay)
 
 def leg2_l2p():
@@ -95,7 +90,7 @@ def leg2_l2p():
         leg2(back_parallel,footup_24,pincer_up_24)
         time.sleep(step_delay)
         #bring leg2 down
-        leg2(back_parallel,footdown,pincer_down)
+        leg2(back_parallel,footdown - angle,pincer_down)
         time.sleep(step_delay)
         
 def leg3_l2p():
@@ -106,7 +101,7 @@ def leg3_l2p():
         leg3(back_parallel,footup_13,pincer_up_13)
         time.sleep(step_delay)
         #bring leg3 down
-        leg3(back_parallel,footdown,pincer_down)
+        leg3(back_parallel,footdown + angle,pincer_down)
         time.sleep(step_delay)
         
 def leg4_p2l():
@@ -117,53 +112,60 @@ def leg4_p2l():
         leg4(front_lateral,footup_24,pincer_up_24)
         time.sleep(step_delay)
         #bring leg4 down
-        leg4(front_lateral,footdown_24_s,pincer_down)
+        leg4(front_lateral,footdown- angle,pincer_down)
         time.sleep(step_delay)
 
-def stairs1():
-       leg4_p2l()
-       time.sleep(rest)
-       leg1_p2l()
-       time.sleep(rest)
-       leg3_l2p()
-       time.sleep(rest)
-       leg2_l2p()
-
-def stairs2():
-        #bring body forward
-        t1 = Thread(target=leg1, args=(front_parallel,footdown,pincer_down))
-        t2 = Thread(target=leg2, args=(back_lateral,footdown,pincer_down))
-        t3 = Thread(target=leg3, args=(back_lateral,footdown,pincer_down))
-        t4 = Thread(target=leg4, args=(front_parallel,footdown,pincer_down))
+def forward():
+    global leg_formation
+    if(leg_formation == 1):
+        #send leg1 to lateral and leg3 to parallel (lift)
+        t1= Thread(target=leg1_p2l)
+        t3=Thread(target=leg3_l2p)
+        
+        #send leg2 to lateral, and leg4 to parallel (drag)
+        t2 = Thread(target=leg2, args=(back_lateral,footdown -angle,pincer_down))
+        t4 = Thread(target=leg4, args=(front_parallel,footdown - angle,pincer_down))
         
         t1.start()
-        t2.start()
         t3.start()
+        t2.start()
         t4.start()
         
         t1.join()
-        t2.join()
         t3.join()
+        t2.join()
         t4.join()
           
-        time.sleep(2)
+        time.sleep(step_delay)
         #now right side legs are parallel and left side legs are lateral      
 
+    if (leg_formation == 2):
+        #send leg2 to parallel and leg4 to lateral (lift)
+        t2= Thread(target=leg2_l2p)
+        t4=Thread(target=leg4_p2l)
+        
+        # sending leg3 to lateral, and leg1 to parallel
+        t3 = Thread(target=leg3, args=(back_lateral,footdown + angle,pincer_down))
+        t1 = Thread(target=leg1, args=(front_parallel,footdown + angle,pincer_down))
+        
+        t3.start()
+        t1.start()
+        t2.start()
+        t4.start()
 
-def init():
-    leg1(89,89,89)
-    leg2(89,89,89)
-    leg3(89,89,89)
-    leg4(89,89,89)
-    time.sleep(2)
+        t2.join()
+        t4.join()        
+        t3.join()
+        t1.join()
+        
+        time.sleep(step_delay)
 
-    #all are lateral
-    print("init")
-    leg1(front_lateral,footdown,pincer_down) #leftside
-    leg2(back_lateral,footdown,pincer_down)
+        #now left side legs are parallel and right side legs are lateral
 
-    leg3(back_lateral,footdown,pincer_down) #rightside
-    leg4(front_lateral,footdown,pincer_down)
+    if(leg_formation == 1):
+        leg_formation = 2
+    elif(leg_formation == 2):
+        leg_formation = 1
 
 def setServo(channel,angle):
     if(angle<0):
@@ -218,7 +220,7 @@ def leg1(angle1,angle2,angle3):
         time.sleep(move_delay)
 
 
-
+        
 
 def leg2(angle1,angle2,angle3):
     angle1 = angle1+leg2_offset[1]
@@ -252,7 +254,7 @@ def leg2(angle1,angle2,angle3):
 
         time.sleep(move_delay)
 
-
+    
 
 def leg3(angle1,angle2,angle3):
     angle1 = angle1+leg3_offset[1]
@@ -320,3 +322,4 @@ def leg4(angle1,angle2,angle3):
 
 if __name__ == '__main__':
     main()
+

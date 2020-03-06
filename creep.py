@@ -654,4 +654,3 @@ def leg4(angle1,angle2,angle3):
 
 if __name__ == '__main__':
     main()
-
