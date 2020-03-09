@@ -55,7 +55,7 @@ def main():
   print("Maximum=",max(dist2))
   print("Mean=",round(statistics.mean(dist2),2))
 
-def set_o_t():
+def get_o_t():
   dist1=[]
   dist2=[]
   for x in range(num_measure):
