@@ -10,3 +10,22 @@ def set_o_t():
    classification.x1o=mean1
    classification.x2o=mean1
    classification.threshold=threshold
+
+def main():
+   set_o_t()
+   creep.pinsetup()
+   creep.begin()
+   while(1):
+     decision=classification.readings()
+     if(decision==1): #flat ground
+        creep.forward()
+     elif(decision==2): #up stair
+        creep.forward()
+     elif(decision==3): #up slope
+        trot.forward()
+     elif(decision==4): #down stair
+        creep.forward()
+     elif(decision==5): #down slope
+        creep.forward()
+    
+
