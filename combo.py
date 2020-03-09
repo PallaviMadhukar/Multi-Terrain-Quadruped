@@ -16,6 +16,9 @@ def main():
    creep.pinsetup()
    creep.begin()
    while(1):
+     option1()
+ 
+def option1(): #measures after each step
      decision=classification.readings()
      if(decision==1): #flat ground
         creep.forward()
@@ -28,4 +31,18 @@ def main():
      elif(decision==5): #down slope
         creep.forward()
     
-
+def option2(): #measures after x steps, more for stairs/slope??
+     decision=classification.readings()
+     if(decision==1): #flat ground
+        creep.walk(f,1)
+     elif(decision==2): #up stair
+        creep.walk(f,1)
+     elif(decision==3): #up slope
+        trot.walk(1)
+     elif(decision==4): #down stair
+        creep.walk(f,1)
+     elif(decision==5): #down slope
+        creep.walk(f,1)
+         
+if __name__ == '__main__':
+    main()
