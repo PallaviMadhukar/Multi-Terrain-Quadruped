@@ -60,22 +60,22 @@ def classify(x1,x2):
       print(abs(h1-h2))
       if(abs(h1-h2)<h_limit_up):
          print("Up stair with height ",avg_h)
-         return 1
+         return 2
       elif(theta>theta_min and theta<theta_max):
          print("Up slope with angle ", theta)
-         return 1
+         return 3
     elif((x1-x1o)>threshold and (x2-x2o)>threshold and abs(x1-x1o)-threshold<abs(x2-x2o)+threshold):
       print(abs(x2-x1))
       print(abs(h1-h2))
       if(abs(h1-h2)<h_limit_down):
           print("Down stairs with height ", avg_h)
-          return 1
+          return 4
     elif(abs(x1-x1o)>threshold and abs(x2-x2o)>threshold and x1-x1o-threshold>x2-x2o+threshold):
 #      if(abs(theta)>theta_min and abs(theta)<theta_max):
          print(abs(x2-x1))
          print(abs(h1-h2))
          print("Down slope with angle ", theta)
-         return 1
+         return 5
     else:
       return 0
 
