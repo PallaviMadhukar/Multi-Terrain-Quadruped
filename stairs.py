@@ -59,15 +59,15 @@ def pinsetup():
 def main():
     pinsetup()
     begin()
-    time.sleep(rest)
+'''    time.sleep(rest)
     climb()
     forward()
     forward()
+'''
 #    time.sleep(rest)
 #    stairs2()
 
 def begin():
-    print("Begin- Left parallel, Right lateral")
     leg1(front_parallel,footdown,pincer_down) #leftside
     leg2(back_lateral,footdown,pincer_down)
 
