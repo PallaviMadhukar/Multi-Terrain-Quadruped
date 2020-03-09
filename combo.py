@@ -28,13 +28,23 @@ def option1(): #measures after each step/x steps
 #        creep.walk(f,3)
      elif(decision==3): #up slope
         trot.forward()
-#        trot.walk(f,3)
+#        trot.walk(3)
      elif(decision==4): #down stair
         creep.forward()
 #        creep.walk(f,3)
      elif(decision==5): #down slope
         creep.forward()
 #        creep.walk(f,3)
+
+def option2(): #segregate according to creep and trot
+     decision=classification.readings()
+     if(decision==3): #up slope is trot
+        trot.forward()
+#        trot.walk(3)
+     else:
+        creep.forward()
+#        creep.walk(f,3)
+
        
 if __name__ == '__main__':
     main()
