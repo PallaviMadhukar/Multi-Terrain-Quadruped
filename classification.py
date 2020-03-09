@@ -79,7 +79,7 @@ def classify(x1,x2):
     else:
       return 0
 
-try:
+def readings():
  while(1):
     dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
     while(dist1>limit):
@@ -93,9 +93,14 @@ try:
     print( "Distance2: ",dist2,"cm")
     decision=classify(dist1,dist2)
     if(decision):
+      return decision
+
+def main():
+   while(1):
+      output=readings()
       rd=input("Another reading? Enter y/n: ")
       if(rd=='n'):
         break;
 
-except KeyboardInterrupt:
-   pass
+if __name__ == '__main__':
+    main()
