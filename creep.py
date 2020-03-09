@@ -50,10 +50,10 @@ def main():
 #    init()
     begin()
 
-    for x in range(0,5):
+    for x in range(0,30):
      forward()
     time.sleep(0.5)
-
+'''
     for x in range(0,5):
      backward()
     time.sleep(0.5)
@@ -65,7 +65,7 @@ def main():
     for x in range(0,5):
          turn_right()
     time.sleep(0.5)     
-
+'''
 def pinsetup():
     GPIO.setmode(GPIO.BOARD)
 
