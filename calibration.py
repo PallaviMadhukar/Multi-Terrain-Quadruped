@@ -33,7 +33,8 @@ def distance(PIN_TRIGGER, PIN_ECHO):
       dist = round(pulse_duration * 17150, 2)
       GPIO.cleanup()
       return dist
-try:
+
+def main():
   dist1=[]
   dist2=[]
   for x in range(num_measure):
@@ -54,5 +55,26 @@ try:
   print("Maximum=",max(dist2))
   print("Mean=",round(statistics.mean(dist2),2))
 
-finally:
-  pass
+def set_o_t():
+  dist1=[]
+  dist2=[]
+  for x in range(num_measure):
+    reading1=distance(PIN_TRIGGER1,PIN_ECHO1)
+    reading2=distance(PIN_TRIGGER2,PIN_ECHO2)
+    print(x, reading1, reading2)
+    if(reading1<limit):
+      dist1.append(reading1)
+    if(reading2<limit):
+      dist2.append(reading2)
+
+  min1=min(dist1)
+  max1=max(dist1)
+  mean1=round(statistics.mean(dist1),2)
+  min2=min(dist2)
+  max2=max(dist2)
+  mean2=round(statistics.mean(dist2),2))
+  threshold=max(mean1-min1, max1-mean1, mean2-min2,max2-mean2)
+  return mean1, mean2, threshold
+
+if __name__ == '__main__':
+    main()
