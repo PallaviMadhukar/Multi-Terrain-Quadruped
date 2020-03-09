@@ -50,10 +50,10 @@ def main():
 #    init()
     begin()
 
-    for x in range(0,30):
+    for x in range(0,5):
      forward()
     time.sleep(0.5)
-'''
+
     for x in range(0,5):
      backward()
     time.sleep(0.5)
@@ -65,7 +65,7 @@ def main():
     for x in range(0,5):
          turn_right()
     time.sleep(0.5)     
-'''
+
 def pinsetup():
     GPIO.setmode(GPIO.BOARD)
 
@@ -94,7 +94,6 @@ def coxa():
         channel_cur[4]=back_lateral
         channel_cur[7]=back_lateral
         channel_cur[10]=front_lateral
-
 
 def tibia():
 #only tibia
@@ -144,8 +143,8 @@ def begin():
     print("Begin")
     global leg_formation
     
-    leg1(front_parallel,89,89) #leftside
-    leg2(back_parallel,89,89)
+    leg1(89,89,89) #leftside
+    leg2(89,89,89)
 
     leg3(back_lateral,89,89) #rightside
     leg4(front_lateral,89,89)
