@@ -320,5 +320,9 @@ def leg4(angle1,angle2,angle3):
 
         time.sleep(move_delay)
 
+def walk(steps):
+  for x in range(0,steps):
+     forward()
+        
 if __name__ == '__main__':
     main()
