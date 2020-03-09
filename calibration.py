@@ -10,7 +10,7 @@ PIN_ECHO1 = 16
 PIN_TRIGGER2=18
 PIN_ECHO2=22
 
-num_measure=20
+num_measure=5
 limit=50
 
 def distance(PIN_TRIGGER, PIN_ECHO):
