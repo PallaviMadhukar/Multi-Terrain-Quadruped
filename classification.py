@@ -95,6 +95,20 @@ def readings():
     if(decision):
       return decision
 
+def stream():
+ while(1):
+    dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
+    while(dist1>limit):
+      print("Waiting for dist 1")
+      dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
+    dist2=distance(PIN_TRIGGER2,PIN_ECHO2)
+    while(dist2>limit):
+      print("Waiting for dist 2")
+      dist2=distance(PIN_TRIGGER2,PIN_ECHO2)
+    print( "Distance1: ",dist1,"cm")
+    print( "Distance2: ",dist2,"cm")
+    decision=classify(dist1,dist2)
+      
 def main():
    while(1):
       output=readings()
