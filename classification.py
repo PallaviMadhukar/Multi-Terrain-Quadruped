@@ -9,6 +9,9 @@ PIN_ECHO1 = 16
 PIN_TRIGGER2=18
 PIN_ECHO2=22
 
+PIN_TRIGGER3=19
+PIN_ECHO3=21
+
 x1o=5.19
 x2o=8.97
 threshold=0.5
@@ -19,6 +22,7 @@ theta_min=4.5 #angle at which walking style has to change
 theta_max=30 #angle beyond which robot cannot climb slope
 h_limit_up=0.5 #stair difference in height
 h_limit_down=0.9
+obstacle=25 #
 
 def distance(PIN_TRIGGER, PIN_ECHO):
       GPIO.setmode(GPIO.BOARD)
@@ -81,6 +85,11 @@ def classify(x1,x2):
 
 def readings():
  while(1):
+  dist3=distance(PIN_TRIGGER3,PIN_ECHO3)
+  print( "Distance3: ",dist3,"cm")
+  if(dist3<obstacle):
+    return 6
+  else:
     dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
     while(dist1>limit):
       print("Waiting for dist 1")
@@ -97,6 +106,10 @@ def readings():
 
 def stream():
  while(1):
+  dist3=distance(PIN_TRIGGER3,PIN_ECHO3)
+  if(dist3<obstacle):
+    return 6
+  else:
     dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
     while(dist1>limit):
       print("Waiting for dist 1")
