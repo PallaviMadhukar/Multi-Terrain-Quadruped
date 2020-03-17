@@ -9,6 +9,9 @@ PIN_ECHO1 = 16
 PIN_TRIGGER2=18
 PIN_ECHO2=22
 
+#PIN_TRIGGER2=19
+#PIN_ECHO2=21
+
 #GPIO.setup(PIN_TRIGGER1, GPIO.OUT)
 #GPIO.setup(PIN_ECHO1, GPIO.IN)
 ##GPIO.setup(PIN_TRIGGER2, GPIO.OUT)
@@ -37,12 +40,12 @@ def distance(PIN_TRIGGER, PIN_ECHO):
 try:
  while(1):
     dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
+    print( "Distance1: ",dist1,"cm")
     dist2=distance(PIN_TRIGGER2,PIN_ECHO2)
     #dist1b=distance(PIN_TRIGGER1,PIN_ECHO1)
     #dist2b=distance(PIN_TRIGGER2,PIN_ECHO2)
     #dist1=round((dist1a+dist1b)/2)
     #dist2=round((dist2a+dist2b)/2)
-    print( "Distance1: ",dist1,"cm")
     print( "Distance2: ",dist2,"cm")
 
 finally:
