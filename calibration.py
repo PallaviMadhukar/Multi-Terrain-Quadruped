@@ -10,7 +10,7 @@ PIN_ECHO1 = 16
 PIN_TRIGGER2=18
 PIN_ECHO2=22
 
-num_measure=5
+num_measure=20
 limit=50
 
 def distance(PIN_TRIGGER, PIN_ECHO):
@@ -72,7 +72,7 @@ def get_o_t():
   mean1=round(statistics.mean(dist1),2)
   min2=min(dist2)
   max2=max(dist2)
-  mean2=round(statistics.mean(dist2),2))
+  mean2=round(statistics.mean(dist2),2)
   threshold=max(mean1-min1, max1-mean1, mean2-min2,max2-mean2)
   return mean1, mean2, threshold
 
