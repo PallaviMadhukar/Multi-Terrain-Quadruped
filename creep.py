@@ -49,11 +49,12 @@ def main():
     pinsetup()
 #    init()
     begin()
+    time.sleep(5)
 
-    for x in range(0,5):
+    for x in range(0,30):
      forward()
     time.sleep(0.5)
-
+'''
     for x in range(0,5):
      backward()
     time.sleep(0.5)
@@ -63,9 +64,9 @@ def main():
     time.sleep(0.5)
 
     for x in range(0,5):
-         turn_right()
-    time.sleep(0.5)     
-
+      turn_right()
+    time.sleep(0.5)
+'''
 def pinsetup():
     GPIO.setmode(GPIO.BOARD)
 
