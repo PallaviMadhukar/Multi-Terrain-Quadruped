@@ -24,7 +24,7 @@ channel_cur = [0,90,90,90,90,90,90,90,90,90,90,90,90]
 
 def main():
     pinsetup()
-    test(11) #enter channel
+    test(9) #enter channel
 
 #        _____
 #3 2 1 -|     |-  10 11 12 
