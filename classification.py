@@ -55,7 +55,7 @@ def calc(x1,x2):
 def classify(x1,x2):
     h1,h2,theta=calc(x1,x2)
     avg_h=(h1+h2)/2
-    print(h1,h2,theta)
+    print(avg_h,theta)
     if((abs(x1-x1o)<=threshold) and (abs(x2-x2o)<=threshold)):
       print("Flat ground")
       return 1
@@ -68,12 +68,18 @@ def classify(x1,x2):
       elif(theta>theta_min and theta<theta_max):
          print("Up slope with angle ", theta)
          return 3
+      else:
+         print("Robot cannot climb")
+         return 6
     elif((x1-x1o)>threshold and (x2-x2o)>threshold and abs(x1-x1o)-threshold<abs(x2-x2o)+threshold):
       print(abs(x2-x1))
       print(abs(h1-h2))
       if(abs(h1-h2)<h_limit_down):
           print("Down stairs with height ", avg_h)
           return 4
+      else:
+         print("Robot cannot climb")
+         return 6
     elif(abs(x1-x1o)>threshold and abs(x2-x2o)>threshold and x1-x1o-threshold>x2-x2o+threshold):
 #      if(abs(theta)>theta_min and abs(theta)<theta_max):
          print(abs(x2-x1))
