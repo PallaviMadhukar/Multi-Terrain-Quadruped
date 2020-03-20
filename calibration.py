@@ -73,7 +73,7 @@ def get_o_t():
   min2=min(dist2)
   max2=max(dist2)
   mean2=round(statistics.mean(dist2),2)
-  threshold=max(mean1-min1, max1-mean1, mean2-min2,max2-mean2)
+  threshold=round(max(mean1-min1, max1-mean1, mean2-min2,max2-mean2),2)
   return mean1, mean2, threshold
 
 if __name__ == '__main__':
