@@ -653,16 +653,16 @@ def leg4(angle1,angle2,angle3):
         time.sleep(move_delay)
 
 def walk(movement, steps):
- if(movement=='f'):  
+ if(movement==1):  
     for x in range(0,steps):
      forward()
- elif(movement=='b'):
+ elif(movement==2):
     for x in range(0,steps):
      backward()
- elif(movement=='l'):
+ elif(movement==3):
     for x in range(0,steps):
          turn_left()
- elif(movement=='r'):
+ elif(movement==4):
     for x in range(0,steps):
          turn_right()
  
