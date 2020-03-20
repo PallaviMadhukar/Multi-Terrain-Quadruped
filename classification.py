@@ -88,20 +88,23 @@ def readings():
   dist3=distance(PIN_TRIGGER3,PIN_ECHO3)
   print( "Distance3: ",dist3,"cm")
   if(dist3<obstacle):
-    return 6
-  else:
-    dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
-    while(dist1>limit):
+    dist3=distance(PIN_TRIGGER3,PIN_ECHO3)
+    print( "Distance3: ",dist3,"cm")
+    if(dist3<obstacle):
+      return 6
+#  else:
+  dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
+  while(dist1>limit):
       print("Waiting for dist 1")
       dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
-    dist2=distance(PIN_TRIGGER2,PIN_ECHO2)
-    while(dist2>limit):
+  dist2=distance(PIN_TRIGGER2,PIN_ECHO2)
+  while(dist2>limit):
       print("Waiting for dist 2")
       dist2=distance(PIN_TRIGGER2,PIN_ECHO2)
-    print( "Distance1: ",dist1,"cm")
-    print( "Distance2: ",dist2,"cm")
-    decision=classify(dist1,dist2)
-    if(decision):
+  print( "Distance1: ",dist1,"cm")
+  print( "Distance2: ",dist2,"cm")
+  decision=classify(dist1,dist2)
+  if(decision):
       return decision
 
 def stream():
@@ -109,21 +112,24 @@ def stream():
   dist3=distance(PIN_TRIGGER3,PIN_ECHO3)
   print( "Distance3: ",dist3,"cm")
   if(dist3<obstacle):
-    return 6
-  else:
-    dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
-    while(dist1>limit):
+    dist3=distance(PIN_TRIGGER3,PIN_ECHO3)
+    print( "Distance3: ",dist3,"cm")
+    if(dist3<obstacle):
+      return 6
+#  else:
+  dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
+  while(dist1>limit):
       print("Waiting for dist 1")
       dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
-    dist2=distance(PIN_TRIGGER2,PIN_ECHO2)
-    while(dist2>limit):
+  dist2=distance(PIN_TRIGGER2,PIN_ECHO2)
+  while(dist2>limit):
       print("Waiting for dist 2")
       dist2=distance(PIN_TRIGGER2,PIN_ECHO2)
-    print( "Distance1: ",dist1,"cm")
-    print( "Distance2: ",dist2,"cm")
-    decision=classify(dist1,dist2)
-    print(decision)
-    if(decision):
+  print( "Distance1: ",dist1,"cm")
+  print( "Distance2: ",dist2,"cm")
+  decision=classify(dist1,dist2)
+  print(decision)
+  if(decision):
       return decision
       
 def main():
