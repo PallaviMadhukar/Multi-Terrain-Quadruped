@@ -107,6 +107,7 @@ def readings():
 def stream():
  while(1):
   dist3=distance(PIN_TRIGGER3,PIN_ECHO3)
+  print( "Distance3: ",dist3,"cm")
   if(dist3<obstacle):
     return 6
   else:
@@ -121,6 +122,9 @@ def stream():
     print( "Distance1: ",dist1,"cm")
     print( "Distance2: ",dist2,"cm")
     decision=classify(dist1,dist2)
+    print(decision)
+    if(decision):
+      return decision
       
 def main():
    while(1):
