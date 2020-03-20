@@ -9,7 +9,7 @@ def set_o_t():
    mean1, mean2, threshold=calibration.get_o_t()
    print(mean1, mean2, threshold)
    classification.x1o=mean1
-   classification.x2o=mean1
+   classification.x2o=mean2
    classification.threshold=threshold
 
 def main():
@@ -48,11 +48,14 @@ def option2(): #segregate according to creep and trot
 #        creep.walk(1,3)
 
 def option3(): #obstacle
-    decision=classification.readings()
+    print(classification.x1o,classification.x2o, classification.threshold)
+    decision=classification.stream()
+    print(decision)
     if(decision==6): #obstacle
-        creep.walk(2,3)
+        creep.walk(2,3) #back
         creep.walk(4,5) #turn right by convention
     else: #flat ground/up down slope/up down stair
         creep.walk(1,3)
+
 if __name__ == '__main__':
     main()
