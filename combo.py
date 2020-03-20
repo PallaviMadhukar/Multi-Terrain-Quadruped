@@ -2,6 +2,7 @@ import calibration #main, distance, get_o_t
 import classification #main, distance, readings, classify, calc
 import creep #main, pinsetup, init, coxa, femur, tibia, begin, forward, backward, turn_left, turn_right, setServo, setServo_invert, leg1, leg2, leg3, leg4 
 import trot #main, pinsetup, begin, leg1_p2l, leg2_l2p, leg3_l2p, leg4_p2l, forward, setServo, setServo_invert, leg1, leg2, leg3, leg4
+import time
 
 def set_o_t():
 #calibrate and set values
@@ -12,29 +13,30 @@ def set_o_t():
    classification.threshold=threshold
 
 def main():
-   set_o_t()
    creep.pinsetup()
    creep.begin()
+   time.sleep(5)
+   set_o_t()
    while(1):
-     option1()
+     option3()
  
 def option1(): #measures after each step/x steps
      decision=classification.readings()
      if(decision==1): #flat ground
         creep.forward()
- #       creep.walk(f,3)         
+#        creep.walk(1,3)
      elif(decision==2): #up stair
         creep.forward()
-#        creep.walk(f,3)
+#        creep.walk(1,3)
      elif(decision==3): #up slope
-        trot.forward()
+        creep.forward()
 #        trot.walk(3)
      elif(decision==4): #down stair
         creep.forward()
-#        creep.walk(f,3)
+#        creep.walk(1,3)
      elif(decision==5): #down slope
         creep.forward()
-#        creep.walk(f,3)
+#        creep.walk(1,3)
 
 def option2(): #segregate according to creep and trot
      decision=classification.readings()
@@ -43,8 +45,14 @@ def option2(): #segregate according to creep and trot
 #        trot.walk(3)
      else:
         creep.forward()
-#        creep.walk(f,3)
+#        creep.walk(1,3)
 
-       
+def option3(): #obstacle
+    decision=classification.readings()
+    if(decision==6): #obstacle
+        creep.walk(2,3)
+        creep.walk(4,5) #turn right by convention
+    else: #flat ground/up down slope/up down stair
+        creep.walk(1,3)
 if __name__ == '__main__':
     main()
