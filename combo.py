@@ -53,7 +53,7 @@ def option3(): #obstacle
     print(decision)
     if(decision==6): #obstacle
         creep.walk(2,3) #back
-        creep.walk(4,5) #turn right by convention
+        creep.walk(3,5) #turn left by convention
     else: #flat ground/up down slope/up down stair
         creep.walk(1,3)
 
