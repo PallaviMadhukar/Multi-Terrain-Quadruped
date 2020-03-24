@@ -8,7 +8,6 @@ i2c_mutex = Lock()
 
 # Import the PCA9685 module.
 import Adafruit_PCA9685
-
 pwm = Adafruit_PCA9685.PCA9685()
 
 # Configure min and max servo pulse lengths
