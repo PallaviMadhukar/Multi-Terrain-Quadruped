@@ -126,10 +126,10 @@ def readings():
 
 def stream():
  while(1):
-  dist3=distance(PIN_TRIGGER3,PIN_ECHO3)
+  dist3=round(distance(PIN_TRIGGER3,PIN_ECHO3),2)
   print( "Distance3: ",dist3,"cm")
   if(dist3<obstacle):
-    dist3=distance(PIN_TRIGGER3,PIN_ECHO3)
+    dist3=round(distance(PIN_TRIGGER3,PIN_ECHO3),2)
     print( "Distance3: ",dist3,"cm")
     if(dist3<obstacle):
       f.write("%f 6\n" %dist3)
