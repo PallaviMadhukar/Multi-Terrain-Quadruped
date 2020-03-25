@@ -101,15 +101,16 @@ def classify(x1,x2):
 
 def readings():
  while(1):
-  dist3=distance(PIN_TRIGGER3,PIN_ECHO3)
+  dist3=round(distance(PIN_TRIGGER3,PIN_ECHO3),2)
   print( "Distance3: ",dist3,"cm")
   if(dist3<obstacle):
-    dist3=distance(PIN_TRIGGER3,PIN_ECHO3)
+    dist3=round(distance(PIN_TRIGGER3,PIN_ECHO3),2)
     print( "Distance3: ",dist3,"cm")
     if(dist3<obstacle):
+      f.write("%f 6\n" %dist3)
       return 6
-      f.write("6\n")
 #  else:
+  f.write("%f " %dist3)
   dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
   while(dist1>limit):
       print("Waiting for dist 1")
