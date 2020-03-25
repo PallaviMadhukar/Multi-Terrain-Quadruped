@@ -3,6 +3,9 @@ import RPi.GPIO as GPIO
 import time
 import math
 
+#writing into file
+f=open("mapping_text.txt","w+")
+
 PIN_TRIGGER1 = 12
 PIN_ECHO1 = 16
       
@@ -12,9 +15,9 @@ PIN_ECHO2=22
 PIN_TRIGGER3=19
 PIN_ECHO3=21
 
-x1o=5.6
-x2o=10.3
-threshold=0.5
+x1o=14.34
+x2o=17.75
+threshold=1
 limit=100 #garbage values
 alpha=math.pi/3 #90- angle at which sensors are placed
 l=6 #distance between sensors
@@ -58,33 +61,40 @@ def classify(x1,x2):
     print(avg_h,theta)
     if((abs(x1-x1o)<=threshold) and (abs(x2-x2o)<=threshold)):
       print("Flat ground")
+      f.write("1\n")
       return 1
     elif((x1-x1o)<=(-threshold)and (x2-x2o)<=(-threshold) and abs(x1-x1o)-threshold<abs(x2-x2o)+threshold):
       print(abs(x2-x1))
       print(abs(h1-h2))
       if(abs(h1-h2)<h_limit_up):
          print("Up stair with height ",avg_h)
+         f.write("2\n")
          return 2
       elif(theta>theta_min and theta<theta_max):
          print("Up slope with angle ", theta)
+         f.write("3\n")
          return 3
       else:
          print("Robot cannot climb up")
+         f.write("6\n")
          return 6
     elif((x1-x1o)>threshold and (x2-x2o)>threshold and abs(x1-x1o)-threshold<abs(x2-x2o)+threshold):
       print(abs(x2-x1))
       print(abs(h1-h2))
       if(abs(h1-h2)<h_limit_down):
           print("Down stairs with height ", avg_h)
+          f.write("4\n")
           return 4
       else:
          print("Robot cannot climb down")
+         f.write("6\n")
          return 6
     elif(abs(x1-x1o)>threshold and abs(x2-x2o)>threshold and x1-x1o-threshold>x2-x2o+threshold):
 #      if(abs(theta)>theta_min and abs(theta)<theta_max):
          print(abs(x2-x1))
          print(abs(h1-h2))
          print("Down slope with angle ", theta)
+         f.write("5\n")
          return 5
     else:
       return 0
@@ -98,6 +108,7 @@ def readings():
     print( "Distance3: ",dist3,"cm")
     if(dist3<obstacle):
       return 6
+      f.write("6\n")
 #  else:
   dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
   while(dist1>limit):
@@ -121,7 +132,9 @@ def stream():
     dist3=distance(PIN_TRIGGER3,PIN_ECHO3)
     print( "Distance3: ",dist3,"cm")
     if(dist3<obstacle):
+      f.write("%f 6\n" %dist3)
       return 6
+  f.write("%f " %dist3)
 #  else:
   dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
   while(dist1>limit):
@@ -139,11 +152,15 @@ def stream():
       return decision
       
 def main():
-   while(1):
-      output=readings()
-      rd=input("Another reading? Enter y/n: ")
-      if(rd=='n'):
-        break;
+   try:
+      while(1):
+         output=readings()
+         rd=input("Another reading? Enter y/n: ")
+         if(rd=='n'):
+           break;
+   except KeyboardInterruptError:
+      f.close()
 
 if __name__ == '__main__':
     main()
+
