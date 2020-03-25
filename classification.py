@@ -61,40 +61,33 @@ def classify(x1,x2):
     print(avg_h,theta)
     if((abs(x1-x1o)<=threshold) and (abs(x2-x2o)<=threshold)):
       print("Flat ground")
-      f.write("1\n")
       return 1
     elif((x1-x1o)<=(-threshold)and (x2-x2o)<=(-threshold) and abs(x1-x1o)-threshold<abs(x2-x2o)+threshold):
       print(abs(x2-x1))
       print(abs(h1-h2))
       if(abs(h1-h2)<h_limit_up):
          print("Up stair with height ",avg_h)
-         f.write("2\n")
          return 2
       elif(theta>theta_min and theta<theta_max):
          print("Up slope with angle ", theta)
-         f.write("3\n")
          return 3
       else:
          print("Robot cannot climb up")
-         f.write("6\n")
          return 6
     elif((x1-x1o)>threshold and (x2-x2o)>threshold and abs(x1-x1o)-threshold<abs(x2-x2o)+threshold):
       print(abs(x2-x1))
       print(abs(h1-h2))
       if(abs(h1-h2)<h_limit_down):
           print("Down stairs with height ", avg_h)
-          f.write("4\n")
           return 4
       else:
          print("Robot cannot climb down")
-         f.write("6\n")
          return 6
     elif(abs(x1-x1o)>threshold and abs(x2-x2o)>threshold and x1-x1o-threshold>x2-x2o+threshold):
 #      if(abs(theta)>theta_min and abs(theta)<theta_max):
          print(abs(x2-x1))
          print(abs(h1-h2))
          print("Down slope with angle ", theta)
-         f.write("5\n")
          return 5
     else:
       return 0
@@ -110,7 +103,6 @@ def readings():
       f.write("%f 6\n" %dist3)
       return 6
 #  else:
-  f.write("%f " %dist3)
   dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
   while(dist1>limit):
       print("Waiting for dist 1")
@@ -123,6 +115,7 @@ def readings():
   print( "Distance2: ",dist2,"cm")
   decision=classify(dist1,dist2)
   if(decision):
+      f.write("%f %f\n" %dist3, %decision)
       return decision
 
 def stream():
@@ -135,7 +128,6 @@ def stream():
     if(dist3<obstacle):
       f.write("%f 6\n" %dist3)
       return 6
-  f.write("%f " %dist3)
 #  else:
   dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
   while(dist1>limit):
@@ -150,6 +142,7 @@ def stream():
   decision=classify(dist1,dist2)
   print(decision)
   if(decision):
+      f.write("%f %f\n" %dist3, %decision)
       return decision
       
 def main():
