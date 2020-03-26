@@ -100,8 +100,8 @@ def main():
     row_labels[mid-offset]=count
  # print(col_labels)
  # print(row_labels)  
- # ax.set_xticklabels(col_labels)
-  #ax.set_yticklabels(row_labels)
+  ax.set_xticklabels(col_labels)
+  ax.set_yticklabels(row_labels)
   ax.tick_params(top=False, bottom=True, labeltop=False, labelbottom=True)
 
   #start
