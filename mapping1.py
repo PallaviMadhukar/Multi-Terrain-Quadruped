@@ -96,12 +96,12 @@ def main():
   plt.text(a,b,'end')
 
   # naming the x axis 
-  plt.xlabel('x - axis') 
+  plt.xlabel('X (1 unit=1 step)') 
   # naming the y axis 
-  plt.ylabel('y - axis') 
+  plt.ylabel('Y (1 unit=1 step)') 
     
   # giving a title to my graph 
-  plt.title('Robot mapping') 
+  plt.title('Trajectory mapping') 
     
   #equal axis
   sq=math.ceil(max(a,b)/10)*10
