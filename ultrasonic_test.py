@@ -1,3 +1,5 @@
+#Test if ultrasonic sensor is working
+
 #!/usr/bin/python
 import RPi.GPIO as GPIO
 import time
@@ -17,26 +19,28 @@ PIN_ECHO2=22
 ##GPIO.setup(PIN_TRIGGER2, GPIO.OUT)
 #GPIO.setup(PIN_ECHO2, GPIO.IN)
 
-def distance(PIN_TRIGGER, PIN_ECHO):
-      GPIO.setmode(GPIO.BOARD)
+def distance(PIN_TRIGGER, PIN_ECHO): #function to calculate distance
+      GPIO.setmode(GPIO.BOARD) #set up
       GPIO.setup(PIN_TRIGGER, GPIO.OUT)
       GPIO.setup(PIN_ECHO, GPIO.IN)
-      GPIO.output(PIN_TRIGGER, GPIO.LOW)
+      
+      GPIO.output(PIN_TRIGGER, GPIO.LOW) #send pulse
       time.sleep(0.5)
       GPIO.output(PIN_TRIGGER, GPIO.HIGH)
       time.sleep(0.00001)
       GPIO.output(PIN_TRIGGER, GPIO.LOW)
 
-      pulse_start_time=time.time()
+      pulse_start_time=time.time() #start timer
       while GPIO.input(PIN_ECHO)==0:
             pulse_start_time = time.time()
-      while GPIO.input(PIN_ECHO)==1:
+      while GPIO.input(PIN_ECHO)==1: #end timer when pulse received
             pulse_end_time = time.time()
 
-      pulse_duration = pulse_end_time - pulse_start_time
-      dist = round(pulse_duration * 17150, 2)
+      pulse_duration = pulse_end_time - pulse_start_time #calculate time taken to receive pulse
+      dist = round(pulse_duration * 17150, 2) #calculate distance
       GPIO.cleanup()
       return dist
+
 try:
  while(1):
     dist1=distance(PIN_TRIGGER1,PIN_ECHO1)
