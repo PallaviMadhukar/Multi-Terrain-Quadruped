@@ -3,8 +3,6 @@
 ### 1. Mapping
 <p align="center">
   <img src="../figures/tm.jpeg">
-  <img src="../figures/om2.jpeg">
-  <img src="../figures/om1.jpg">
 </p>
 
 <p align="center">
