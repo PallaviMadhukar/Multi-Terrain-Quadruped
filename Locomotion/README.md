@@ -55,6 +55,8 @@ X2T = maximum of ((max2 - X2o), (X2o – min2))
 |x1-X1o| ≤ X1T, |x2-X2o| ≤ X2T
 <p align="center">
   <img src="../figures/flatgnd.png">
+  <width="200">
+  <height="200">
 </p>
 
 ### Upstep
