@@ -48,53 +48,51 @@ First, the sensors are calibrated on flat ground by taking an average of twenty 
 X1T = maximum of ((max1 - X1o), (X1o – min1))
 X2T = maximum of ((max2 - X2o), (X2o – min2))
 <p align="center">
-  <img src="../figures/calibration.png">
+  <img src="../figures/calibration.png" width="200" height="100">
 </p>
 
 ### Flat ground
 |x1-X1o| ≤ X1T, |x2-X2o| ≤ X2T
 <p align="center">
-  <img src="../figures/flatgnd.png">
-  <width="200">
-  <height="100">
+  <img src="../figures/flatgnd.png" width="200" height="100">
 </p>
 
 ### Upstep
 (X1o-x1) ≥ X1T, (X2o-x2) ≥ X2T
 and (X1o-x1) ≈ (X2o-x2) 
 <p align="center">
-  <img src="../figures/upstep.png">
+  <img src="../figures/upstep.png" width="200" height="100">
 </p>
 
 ### Downstep
 (x1-X1o) > X1T, (x2-X2o) > X2T
 and (x1-X1o) ≈ (x2-X2o)
 <p align="center">
-  <img src="../figures/downstep.png">
+  <img src="../figures/downstep.png" width="200" height="100">
 </p>
 
 ### Height of step
 h= (X1o-x2)sinα= (X2o-x2)sinα
 <p align="center">
-  <img src="../figures/height.png">
+  <img src="../figures/height.png" width="200" height="100">
 </p>
 
 ### Upslope
 (X1o-x1) ≥ X1T, (X2o-x2) ≥ X2T
 and (X1o-x1) < (X2o-x2)
 <p align="center">
-  <img src="../figures/upslope.png">
+  <img src="../figures/upslope.png" width="200" height="100">
 </p>
 
 ### Downslope
 (x1-X1o) > X1T, (x2-X2o) > X2T
 and (x1-X1o) < (x2-X2o)
 <p align="center">
-  <img src="../figures/downslope.png">
+  <img src="../figures/downslope.png" width="200" height="100">
 </p>
 
 ### Angle of slope
 Θ=pi/2-α-arctan((x1-x2)/L)
 <p align="center">
-  <img src="../figures/angle.png">
+  <img src="../figures/angle.png" width="200" height="100">
 </p>
