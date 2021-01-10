@@ -56,7 +56,7 @@ X2T = maximum of ((max2 - X2o), (X2o – min2))
 <p align="center">
   <img src="../figures/flatgnd.png">
   <width="200">
-  <height="200">
+  <height="100">
 </p>
 
 ### Upstep
