@@ -18,6 +18,8 @@ Source: [Tensorflow detection model zoo](https://github.com/tensorflow/models/bl
 
 ### 3. Facial recognition
 
-[Encoding faces](encode_faces.py)
-[Facial recognition](pi-face-recognition.py)
-Source: [Raspberry pi facial recognition](https://www.pyimagesearch.com/2018/06/25/raspberry-pi-face-recognition/)
+Step 1. [Encoding faces](encode_faces.py)
+
+Step 2. [Facial recognition](pi-face-recognition.py)
+
+Source: [Raspberry Pi facial recognition](https://www.pyimagesearch.com/2018/06/25/raspberry-pi-face-recognition/)
